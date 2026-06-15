@@ -87,9 +87,9 @@ public class TileEntityMachineBlastFurnace extends TileEntityMachineBase impleme
 			this.speed = 0F;
 			GenericRecipe recipe = BlastFurnaceRecipesNT.INSTANCE.getRecipe(slots[1], slots[2]);
 			
-			if(!this.tilted && recipe != null && this.fuel >= FUEL_RATE && this.canOutput(recipe) && this.breatheAir(1)) {
+			if(!this.tilted && recipe != null && this.fuel >= FUEL_RATE && this.hasQuantities(recipe) && this.canOutput(recipe) && this.breatheAir(1)) {
 				
-				this.speed = MathHelper.clamp_float(0.5F + this.tanks[0].getFill() * 4F / this.tanks[0].getMaxFill(), 0.5F, 3F);
+				this.speed = MathHelper.clamp_float(0.5F + this.tanks[0].getFill() * 8F / this.tanks[0].getMaxFill(), 0.5F, 5F);
 				
 				this.isProgressing = true;
 				this.progress += speed / recipe.duration;
@@ -158,6 +158,12 @@ public class TileEntityMachineBlastFurnace extends TileEntityMachineBase impleme
 		};
 	}
 	
+	public boolean hasQuantities(GenericRecipe recipe) {
+		if(recipe.inputItem[0].matchesRecipe(slots[1], false) && recipe.inputItem[1].matchesRecipe(slots[2], false)) return true;
+		if(recipe.inputItem[0].matchesRecipe(slots[2], false) && recipe.inputItem[1].matchesRecipe(slots[1], false)) return true;
+		return false;
+	}
+	
 	public boolean canOutput(GenericRecipe recipe) {
 		
 		for(int i = 0; i < recipe.outputItem.length; i++) {
@@ -199,7 +205,8 @@ public class TileEntityMachineBlastFurnace extends TileEntityMachineBase impleme
 	}
 	
 	public int getBurnTime(ItemStack stack) {
-		return burnModule.getBurnHeat(burnModule.getBurnTime(stack), stack);
+		if(stack.getItem().hasContainerItem(stack)) return 0;
+		return burnModule.getBurnHeat(burnModule.getBurnTime(stack, 0D), stack, 0D);
 	}
 
 	@Override
