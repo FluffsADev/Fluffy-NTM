@@ -1556,14 +1556,14 @@ public class ResourceManager {
 	public static final ResourceLocation supply_crate = new ResourceLocation(RefStrings.MODID, "textures/blocks/crate_can.png");
 	public static final ResourceLocation landing_capsule_tex = new ResourceLocation(RefStrings.MODID, "textures/models/missile_parts/warheads/rp_landing_capsule.png");
 	public static final ResourceLocation drop_pod_tex = new ResourceLocation(RefStrings.MODID, "textures/models/missile_parts/warheads/rp_drop_pod.png");
-	
+
 	public static final ResourceLocation combat_pod_skin_blue = new ResourceLocation(RefStrings.MODID, "textures/models/bombs/combat_drop_pod.blue.png");
 	public static final ResourceLocation combat_pod_skin_yellow = new ResourceLocation(RefStrings.MODID, "textures/models/bombs/combat_drop_pod.yellow.png");
 	public static final ResourceLocation combat_pod_skin_white = new ResourceLocation(RefStrings.MODID, "textures/models/bombs/combat_drop_pod.white.png");
 	public static final ResourceLocation combat_pod_skin_green = new ResourceLocation(RefStrings.MODID, "textures/models/bombs/combat_drop_pod.green.png");
 	public static final ResourceLocation combat_pod_skin_red = new ResourceLocation(RefStrings.MODID, "textures/models/bombs/combat_drop_pod.red.png");
 
-	
+
 	public static final ResourceLocation soyuz_module_dome_tex = new ResourceLocation(RefStrings.MODID, "textures/models/soyuz_capsule/module_dome.png");
 	public static final ResourceLocation soyuz_module_lander_tex = new ResourceLocation(RefStrings.MODID, "textures/models/soyuz_capsule/module_lander.png");
 	public static final ResourceLocation soyuz_module_lander_space_tex = new ResourceLocation(RefStrings.MODID, "textures/models/soyuz_capsule/module_lander_space.png");
@@ -1834,7 +1834,7 @@ public class ResourceManager {
 	public static final HFRWavefrontObject algae_film = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/blocks/algae_film.obj"));
 	public static final IModelCustom sat_rail = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/railgun_main.obj"));
 	public static final IModelCustom plane = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/plane.obj"));
-	
+
 	public static final IModelCustom charge_dynamite = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/blocks/charge_dynamite.obj")).noSmooth();
 	public static final IModelCustom charge_c4 = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/blocks/charge_c4.obj")).noSmooth();
 
