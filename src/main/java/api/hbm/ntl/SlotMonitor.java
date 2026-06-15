@@ -103,15 +103,12 @@ public class SlotMonitor {
 		
 		if(hasTypeChanged) {
 			
-			System.out.println("Type changed!");
-			
 			// remove from all existing monitors
 			Iterator<CacheSlot> iterator = viewedBy.iterator();
 			while(iterator.hasNext()) {
 				CacheSlot slot = iterator.next();
 				slot.removeMonitor(this);
 				iterator.remove();
-				System.out.println("Removing");
 			}
 			
 			// set updated traits
@@ -130,13 +127,9 @@ public class SlotMonitor {
 			// find new monitors
 			if(pneumoNet != null) {
 				
-				System.out.println("Adding to new network...");
-				
 				for(StackCache cache : pneumoNet.accessors) {
-					System.out.println("Adding to cache...");
 					if(!cache.hasExpired && parent.isAvailableToCache(cache)) {
 						cache.addToCache(this);
-						System.out.println("Added!");
 					}
 				}
 			}

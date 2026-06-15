@@ -82,6 +82,8 @@ public class PacketDispatcher {
 
 		//Syncs muzzle flashes of SEDNA guns for clients from other entities/players
 		wrapper.registerMessage(MuzzleFlashPacket.Handler.class, MuzzleFlashPacket.class, i++, Side.CLIENT);
+		//Sends custom container-bound payload from a server container to a client one
+		wrapper.registerMessage(ContainerCustomPayloadPacket.Handler.class, ContainerCustomPayloadPacket.class, i++, Side.CLIENT);
 	}
 
 }
