@@ -61,9 +61,7 @@ import com.hbm.tileentity.machine.pile.*;
 import com.hbm.tileentity.machine.rbmk.*;
 import com.hbm.tileentity.machine.storage.*;
 import com.hbm.tileentity.network.*;
-import com.hbm.tileentity.network.pneumatic.TileEntityPneumoStorageAccess;
-import com.hbm.tileentity.network.pneumatic.TileEntityPneumoStorageClutter;
-import com.hbm.tileentity.network.pneumatic.TileEntityPneumoTube;
+import com.hbm.tileentity.network.pneumatic.*;
 import com.hbm.tileentity.turret.*;
 import com.hbm.util.Compat;
 
@@ -197,7 +195,6 @@ public class TileMappings {
 		put(TileEntityNukeBalefire.class, "tileentity_nuke_fstbmb");
 		put(TileEntityAntimatter.class, "tileentity_nuke_Antimatter");
 		put(TileEntityMicrowave.class, "tileentity_microwave");
-		put(TileEntityMachineMiniRTG.class, "tileentity_mini_rtg");
 		put(TileEntityBlockICF.class, "tileentity_block_icf");
 		put(TileEntityICFPress.class, "tileentity_icf_press");
 		put(TileEntityICFController.class, "tileentity_icf_controller");
@@ -529,6 +526,9 @@ public class TileMappings {
 		put(TileEntityPneumoTubePaintable.class, "tileentity_pneumatic_tube_paintable");
 		put(TileEntityPneumoStorageAccess.class, "tileentity_pneumatic_storage_access");
 		put(TileEntityPneumoStorageClutter.class, "tileentity_pneumatic_storage_clutter");
+		put(TileEntityPneumoStorageMono.class, "tileentity_pneumatic_storage_mono");
+		put(TileEntityPneumoStorageImporter.class, "tileentity_pneumatic_storage_importer");
+		put(TileEntityPneumoStorageExporter.class, "tileentity_pneumatic_storage_exporter");
 
 		put(TileEntityRadioTorchSender.class, "tileentity_rtty_sender");
 		put(TileEntityRadioTorchReceiver.class, "tileentity_rtty_rec");

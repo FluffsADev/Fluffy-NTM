@@ -202,6 +202,9 @@ public class ClientProxy extends ServerProxy {
 	}
 
 	@Override
+	public boolean advancedTooltips() { return Minecraft.getMinecraft().gameSettings.advancedItemTooltips; }
+
+	@Override
 	public void registerTileEntitySpecialRenderer() {
 		//test crap
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityObjTester.class, new RendererObjTester());
@@ -325,7 +328,6 @@ public class ClientProxy extends ServerProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMachineCrystallizer.class, new RenderCrystallizer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMicrowave.class, new RenderMicrowave());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMachineRTG.class, new RenderRTG());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMachineMiniRTG.class, new RenderRTG());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFF.class, new RenderForceField());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityForceField.class, new RenderMachineForceField());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMachineFENSU.class, new RenderFENSU());

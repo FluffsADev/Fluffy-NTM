@@ -228,6 +228,12 @@ public class SkyProviderCelestial extends IRenderHandler {
 
 			GL11.glRotatef(body.axialTilt, 1.0F, 0.0F, 0.0F);
 			GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
+
+			// what the hell are you doing kotmatross (angelica un-fuckening)
+			if(body.axialTilt == 0) {
+				GL11.glRotatef(0.0F, 0.0F, 1.0F, 0.0F); // ordinal 2 will execute ONLY if there is no defined tilt
+			}
+
 			GL11.glRotatef(solarAngle * 360.0F, 1.0F, 0.0F, 0.0F);
 
 			OpenGlHelper.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ONE, GL11.GL_ZERO);
