@@ -10,7 +10,6 @@ import com.hbm.tileentity.network.RTTYSystem.RTTYChannel;
 import com.hbm.util.BufferUtil;
 import com.hbm.util.Compat;
 import com.hbm.util.CompatExternal;
-import com.hbm.main.MainRegistry;
 
 import api.hbm.redstoneoverradio.IRORInteractive;
 import api.hbm.redstoneoverradio.RORFunctionException;
@@ -67,7 +66,6 @@ public class TileEntityRadioTorchController extends TileEntityLoadedBase impleme
 					RTTYChannel chan = RTTYSystem.listen(worldObj, channel);
 					if(chan != null) {
 						String rec = "" + chan.signal;
-						MainRegistry.logger.info("RTTY controller at " + xCoord + "," + yCoord + "," + zCoord + " heard on channel '" + channel + "': '" + rec + "' (ts=" + chan.timeStamp + ")");
 
 						if("selfdestruct".equals(rec)) {
 							worldObj.func_147480_a(xCoord, yCoord, zCoord, false);
@@ -81,11 +79,9 @@ public class TileEntityRadioTorchController extends TileEntityLoadedBase impleme
 						if((this.polling && chan.timeStamp >= worldObj.getTotalWorldTime() - 1) || !rec.equals(prev)) {
 							try {
 								if(rec != null && !rec.isEmpty()) {
-									MainRegistry.logger.info("Controller invoking runRORFunction on adjacent TE with command: '" + IRORInteractive.PREFIX_FUNCTION + IRORInteractive.getCommand(rec) + "' params=" + java.util.Arrays.toString(IRORInteractive.getParams(rec)));
 									ror.runRORFunction(IRORInteractive.PREFIX_FUNCTION + IRORInteractive.getCommand(rec), IRORInteractive.getParams(rec));
 								}
 							} catch(RORFunctionException ex) {
-								MainRegistry.logger.warn("RORFunctionException in controller invocation: " + ex.getMessage());
 							}
 							prev = rec;
 						}
