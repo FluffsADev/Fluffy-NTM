@@ -27,7 +27,7 @@ import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.DoorDecl;
 import com.hbm.tileentity.machine.storage.TileEntityFileCabinet;
 import com.hbm.util.Compat;
-
+import com.hbm.items.block.ItemBlockCargoElevatorStop;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -671,7 +671,8 @@ public class ModBlocks {
 	public static Block seal_controller;
 	public static Block seal_hatch;
 
-	public static Block cargo_elevator;
+	public static Block cargo_elevator_stop;
+	public static Block cargo_elevator_extension;
 
 	public static Block vault_door;
 	public static Block blast_door;
@@ -2298,7 +2299,8 @@ public class ModBlocks {
 		seal_controller = new BlockSeal(Material.iron).setBlockName("seal_controller").setHardness(10.0F).setResistance(100.0F).setCreativeTab(MainRegistry.machineTab);
 		seal_hatch = new BlockHatch(Material.iron).setBlockName("seal_hatch").setHardness(Float.POSITIVE_INFINITY).setResistance(Float.POSITIVE_INFINITY).setCreativeTab(null).setBlockTextureName(RefStrings.MODID + ":seal_hatch_3");
 
-		cargo_elevator = new BlockCargoElevator().setBlockName("cargo_elevator").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
+		cargo_elevator_stop = new BlockCargoElevatorStop().setBlockName("cargo_elevator_stop").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
+		cargo_elevator_extension = new BlockCargoElevatorExtension().setBlockName("cargo_elevator_extension").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
 
 		vault_door = new BlockDoorGeneric(Material.iron, DoorDecl.VAULT_DOOR).setBlockName("vault_door").setHardness(10.0F).setResistance(1_000.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":concrete");
 		blast_door = new BlastDoor(Material.iron).setBlockName("blast_door").setHardness(10.0F).setResistance(1_000.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":blast_door");
@@ -3412,7 +3414,8 @@ public class ModBlocks {
 		GameRegistry.registerBlock(seal_hatch, seal_hatch.getUnlocalizedName());
 
 		//Hooh
-		GameRegistry.registerBlock(cargo_elevator, cargo_elevator.getUnlocalizedName());
+		GameRegistry.registerBlock(cargo_elevator_stop, ItemBlockCargoElevatorStop.class, "cargo_elevator_stop");
+		GameRegistry.registerBlock(cargo_elevator_extension, cargo_elevator_extension.getUnlocalizedName());
 
 		//Vault Door
 		GameRegistry.registerBlock(vault_door, vault_door.getUnlocalizedName());

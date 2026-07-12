@@ -23,11 +23,11 @@ public class RenderCargoElevator extends TileEntitySpecialRenderer implements II
 
 		bindTexture(ResourceManager.cargo_elevator_tex);
 		TileEntityCargoElevator elevator = (TileEntityCargoElevator) tile;
-		
+
 		if(elevator.renderPlatform) {
 			double extension = elevator.prevExtension + (elevator.extension - elevator.prevExtension) * interp;
 			ResourceManager.cargo_elevator.renderPart("Base");
-			
+
 			GL11.glPushMatrix(); {
 				GL11.glTranslated(0, extension, 0);
 				ResourceManager.cargo_elevator.renderPart("Platform");
@@ -44,13 +44,13 @@ public class RenderCargoElevator extends TileEntitySpecialRenderer implements II
 				GL11.glTranslated(0, 1, 0);
 			}
 		} GL11.glPopMatrix();
-		
+
 		GL11.glPopMatrix();
 	}
 
 	@Override
 	public Item getItemForRenderer() {
-		return Item.getItemFromBlock(ModBlocks.cargo_elevator);
+		return Item.getItemFromBlock(ModBlocks.cargo_elevator_stop);
 	}
 
 	@Override
@@ -73,6 +73,7 @@ public class RenderCargoElevator extends TileEntitySpecialRenderer implements II
 				GL11.glTranslated(0, 1, 0);
 				ResourceManager.cargo_elevator.renderPart("Guides");
 				GL11.glShadeModel(GL11.GL_FLAT);
-			}};
+			}
+		};
 	}
 }

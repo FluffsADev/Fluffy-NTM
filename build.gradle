@@ -85,10 +85,10 @@ repositories {
 		name = "gt"
 		url = "https://gregtech.mechaenetia.com/"
 	}
-	//maven {
-	//	name = "CurseForge"
-	//	url = "https://minecraft.curseforge.com/api/maven/"
-	//}
+	maven {
+		name = "CurseForge"
+		url = "https://minecraft.curseforge.com/api/maven/"
+	}
 	maven {
 		name = "Jitpack"
 		url = "https://jitpack.io"

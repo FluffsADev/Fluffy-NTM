@@ -1,4 +1,4 @@
-package com.hbm.blocks.machine;
+/*package com.hbm.blocks.machine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public class BlockCargoElevator extends BlockDummyable {
 			x = pos[0];
 			y = pos[1];
 			z = pos[2];
-			
+
 			// due to the collisions being really fucking weird, we have to add custom elevator extension too
 			if(player.getHeldItem() != null && player.getHeldItem().getItem() == Item.getItemFromBlock(this)) {
 				boolean replacable = true;
@@ -67,7 +67,7 @@ public class BlockCargoElevator extends BlockDummyable {
 						break;
 					}
 				}
-				
+
 				if(replacable) {
 					for(int i = x - 1; i < x + 2; i++) for(int j = z - 1; j < z + 2; j++) {
 						world.setBlock(i, y + elevator.height + 1, j, ModBlocks.cargo_elevator, 1, 3);
@@ -82,7 +82,7 @@ public class BlockCargoElevator extends BlockDummyable {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 		int[] pos = ((BlockDummyable) ModBlocks.cargo_elevator).findCore(world, x, y, z);
@@ -104,7 +104,7 @@ public class BlockCargoElevator extends BlockDummyable {
 	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.999F, 1.0F); //for some fucking reason setting maxY to something that isn't 1 magically fixes item collisions
 	}
-	
+
 	@Override
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB entityBounding, List list, Entity entity) {
 
@@ -114,7 +114,7 @@ public class BlockCargoElevator extends BlockDummyable {
 		x = pos[0];
 		y = pos[1];
 		z = pos[2];
-		
+
 		TileEntityCargoElevator elevator = (TileEntityCargoElevator) world.getTileEntity(x, y, z);
 		if(elevator == null) return;
 
@@ -122,7 +122,7 @@ public class BlockCargoElevator extends BlockDummyable {
 			if(entityBounding.intersectsWith(aabb)) list.add(aabb);
 		}
 	}
-	
+
 	@Override
 	public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec) {
 		int[] pos = this.findCore(world, x, y, z);
@@ -138,7 +138,7 @@ public class BlockCargoElevator extends BlockDummyable {
 				return new MovingObjectPosition(x, y, z, intercept.sideHit, intercept.hitVec);
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -152,7 +152,7 @@ public class BlockCargoElevator extends BlockDummyable {
 		x = pos[0];
 		y = pos[1];
 		z = pos[2];
-		
+
 		TileEntityCargoElevator elevator = (TileEntityCargoElevator) world.getTileEntity(x, y, z);
 		if(elevator == null) return;
 
@@ -173,7 +173,7 @@ public class BlockCargoElevator extends BlockDummyable {
 	public boolean shouldDrawHighlight(World world, int x, int y, int z) {
 		return true;
 	}
-	
+
 	public AxisAlignedBB[] getGuideAABBs(int x, int y, int z, int height) {
 		return new AxisAlignedBB[] {
 				AxisAlignedBB.getBoundingBox(x - 1, y, z - 1, x - 0.75, y + height, z - 0.75),
@@ -182,7 +182,7 @@ public class BlockCargoElevator extends BlockDummyable {
 				AxisAlignedBB.getBoundingBox(x + 1.75, y, z + 1.75, x + 2, y + height, z + 2),
 		};
 	}
-	
+
 	public AxisAlignedBB[] getAABBs(TileEntityCargoElevator elevator, int x, int y, int z) {
 		int height = elevator.height + 1;
 		return new AxisAlignedBB[] {
@@ -194,3 +194,4 @@ public class BlockCargoElevator extends BlockDummyable {
 		};
 	}
 }
+*/
