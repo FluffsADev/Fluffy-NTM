@@ -143,6 +143,34 @@ public class TileEntityCargoElevator extends TileEntityLoadedBase {
 		stops.add(relY);
 		markDirty();
 	}
+	public boolean addTopStopFloor(World world, int coreX, int coreY, int coreZ) {
+		int layerY = coreY + this.height + 1;
+
+		for(int x = coreX - 1; x < coreX + 2; x++) {
+			for(int z = coreZ - 1; z < coreZ + 2; z++) {
+				if(!world.getBlock(x, layerY, z).isReplaceable(world, x, layerY, z)) {
+					return false;
+				}
+			}
+		}
+
+		this.height++;
+		int newRelY = this.height;
+
+		for(int x = coreX - 1; x < coreX + 2; x++) {
+			for(int z = coreZ - 1; z < coreZ + 2; z++) {
+				if(x == coreX && z == coreZ) {
+					world.setBlock(x, layerY, z, ModBlocks.cargo_elevator_stop, 1, 3);
+				} else {
+					world.setBlock(x, layerY, z, ModBlocks.cargo_elevator_extension, 1, 3);
+				}
+			}
+		}
+
+		this.addStop(newRelY);
+		this.markDirty();
+		return true;
+	}
 
 	public void goToNextUpStop() {
 		int current = (int)Math.floor(this.extension + 1.0E-6D);
@@ -195,13 +223,9 @@ public class TileEntityCargoElevator extends TileEntityLoadedBase {
 		stops.clear();
 		stops.add(0);
 
-		NBTTagList stopList = nbt.getTagList("stops", 3);
-		for(int i = 0; i < stopList.tagCount(); i++) {
-			NBTBase base = stopList.tagAt(i);
-			if(base instanceof NBTTagInt) {
-				int s = ((NBTTagInt)base).func_150287_d();
-				if(s >= 0 && s <= this.height) stops.add(s);
-			}
+		int[] arr = nbt.getIntArray("stops_arr");
+		for(int s : arr) {
+			if(s >= 0 && s <= this.height) stops.add(s);
 		}
 
 		targetExtension = MathHelper.clamp_double(targetExtension, 0, this.height);
@@ -216,13 +240,19 @@ public class TileEntityCargoElevator extends TileEntityLoadedBase {
 		nbt.setDouble("targetExtension", targetExtension);
 		nbt.setInteger("height", height);
 
-		NBTTagList stopList = new NBTTagList();
+		int[] arr = new int[stops.size()];
+		int idx = 0;
 		for(Integer s : stops) {
 			if(s != null && s >= 0 && s <= this.height) {
-				stopList.appendTag(new NBTTagInt(s));
+				arr[idx++] = s;
 			}
 		}
-		nbt.setTag("stops", stopList);
+		if(idx < arr.length) {
+			int[] trimmed = new int[idx];
+			System.arraycopy(arr, 0, trimmed, 0, idx);
+			arr = trimmed;
+		}
+		nbt.setIntArray("stops_arr", arr);
 	}
 
 	AxisAlignedBB bb = null;

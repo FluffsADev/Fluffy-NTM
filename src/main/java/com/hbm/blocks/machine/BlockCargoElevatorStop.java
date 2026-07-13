@@ -61,7 +61,7 @@ public class BlockCargoElevatorStop extends BlockDummyable {
 
 		ItemStack held = player.getHeldItem();
 
-		// old behavior parity: extension item builds one 3x3 layer on top
+		// extension item: builds one plain 3x3 layer on top
 		if(held != null && held.getItem() == Item.getItemFromBlock(ModBlocks.cargo_elevator_extension)) {
 
 			int layerY = pos[1] + elevator.height + 1;
@@ -95,13 +95,26 @@ public class BlockCargoElevatorStop extends BlockDummyable {
 			return true;
 		}
 
-		// any stop clicked becomes a stop marker
+		// stop item: builds a new STOP floor on top, same way the extension
+		// item builds a plain floor - regardless of where on the elevator
+		// you clicked to use it
+		if(held != null && held.getItem() == Item.getItemFromBlock(ModBlocks.cargo_elevator_stop)) {
+
+			boolean built = elevator.addTopStopFloor(world, pos[0], pos[1], pos[2]);
+
+			if(built && !player.capabilities.isCreativeMode) {
+				held.stackSize--;
+				if(held.stackSize <= 0) player.setCurrentItemOrArmor(0, null);
+			}
+			return true;
+		}
+
+		// empty hand / unrelated item: clicked stop becomes a marker, then move
 		int relY = y - pos[1];
 		if(relY >= 0 && relY <= elevator.height) {
 			elevator.addStop(relY);
 		}
 
-		// controls
 		if(player.isSneaking()) elevator.goToNextDownStop();
 		else elevator.goToNextUpStop();
 
@@ -121,7 +134,13 @@ public class BlockCargoElevatorStop extends BlockDummyable {
 		TileEntityCargoElevator elevator = (TileEntityCargoElevator) te;
 
 		int relY = y - pos[1];
-		if(relY >= 0 && relY <= elevator.height) {
+		if(relY < 0) return;
+
+		if(relY > elevator.height) {
+			// safety net for stop blocks placed by other means (commands,
+			// other mods, etc) above the current shaft height
+			elevator.ensureHeightAndAddStop(world, pos[0], pos[1], pos[2], relY);
+		} else {
 			elevator.addStop(relY);
 		}
 	}
@@ -171,8 +190,7 @@ public class BlockCargoElevatorStop extends BlockDummyable {
 		for(AxisAlignedBB aabb : getAABBs(elevator, pos[0], pos[1], pos[2])) {
 			MovingObjectPosition intercept = aabb.calculateIntercept(startVec, endVec);
 			if(intercept != null) {
-				return new MovingObjectPosition(x, y, z, intercept.sideHit, intercept.hitVec);
-			}
+				return new MovingObjectPosition(pos[0], pos[1], pos[2], intercept.sideHit, intercept.hitVec);			}
 		}
 		return null;
 	}
@@ -206,23 +224,15 @@ public class BlockCargoElevatorStop extends BlockDummyable {
 		return true;
 	}
 
-	public AxisAlignedBB[] getGuideAABBs(int x, int y, int z, int height) {
-		return new AxisAlignedBB[] {
-			AxisAlignedBB.getBoundingBox(x - 1, y, z - 1, x - 0.75, y + height, z - 0.75),
-			AxisAlignedBB.getBoundingBox(x - 1, y, z + 1.75, x - 0.75, y + height, z + 2),
-			AxisAlignedBB.getBoundingBox(x + 1.75, y, z - 1, x + 2, y + height, z - 0.75),
-			AxisAlignedBB.getBoundingBox(x + 1.75, y, z + 1.75, x + 2, y + height, z + 2),
-		};
-	}
 
 	public AxisAlignedBB[] getAABBs(TileEntityCargoElevator elevator, int x, int y, int z) {
 		int h = elevator.height + 1;
 		return new AxisAlignedBB[] {
-			AxisAlignedBB.getBoundingBox(x - 1, y, z - 1, x - 0.75, y + h, z - 0.75),
-			AxisAlignedBB.getBoundingBox(x - 1, y, z + 1.75, x - 0.75, y + h, z + 2),
-			AxisAlignedBB.getBoundingBox(x + 1.75, y, z - 1, x + 2, y + h, z - 0.75),
-			AxisAlignedBB.getBoundingBox(x + 1.75, y, z + 1.75, x + 2, y + h, z + 2),
-			AxisAlignedBB.getBoundingBox(x - 1, y + 0.75 + elevator.extension, z - 1, x + 2, y + 1 + elevator.extension, z + 2),
+				AxisAlignedBB.getBoundingBox(x - 1, y, z - 1, x - 0.75, y + h, z - 0.75),
+				AxisAlignedBB.getBoundingBox(x - 1, y, z + 1.75, x - 0.75, y + h, z + 2),
+				AxisAlignedBB.getBoundingBox(x + 1.75, y, z - 1, x + 2, y + h, z - 0.75),
+				AxisAlignedBB.getBoundingBox(x + 1.75, y, z + 1.75, x + 2, y + h, z + 2),
+				AxisAlignedBB.getBoundingBox(x - 1, y + 0.75 + elevator.extension, z - 1, x + 2, y + 1 + elevator.extension, z + 2),
 		};
 	}
 }
