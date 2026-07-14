@@ -673,6 +673,7 @@ public class ModBlocks {
 
 	public static Block cargo_elevator_stop;
 	public static Block cargo_elevator_extension;
+	public static Block custom_ele_frame;
 
 	public static Block vault_door;
 	public static Block blast_door;
@@ -2301,6 +2302,7 @@ public class ModBlocks {
 
 		cargo_elevator_stop = new BlockCargoElevatorStop().setBlockName("cargo_elevator_stop").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
 		cargo_elevator_extension = new BlockCargoElevatorExtension().setBlockName("cargo_elevator_extension").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
+		custom_ele_frame = new com.hbm.blocks.machine.BlockCustomElevatorStopFrame().setBlockName("elevator_stop_frame").setCreativeTab(MainRegistry.machineTab);
 
 		vault_door = new BlockDoorGeneric(Material.iron, DoorDecl.VAULT_DOOR).setBlockName("vault_door").setHardness(10.0F).setResistance(1_000.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":concrete");
 		blast_door = new BlastDoor(Material.iron).setBlockName("blast_door").setHardness(10.0F).setResistance(1_000.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":blast_door");
@@ -3416,6 +3418,7 @@ public class ModBlocks {
 		//Hooh
 		GameRegistry.registerBlock(cargo_elevator_stop, ItemBlockCargoElevatorStop.class, "cargo_elevator_stop");
 		GameRegistry.registerBlock(cargo_elevator_extension, cargo_elevator_extension.getUnlocalizedName());
+		GameRegistry.registerBlock(custom_ele_frame, custom_ele_frame.getUnlocalizedName());
 
 		//Vault Door
 		GameRegistry.registerBlock(vault_door, vault_door.getUnlocalizedName());

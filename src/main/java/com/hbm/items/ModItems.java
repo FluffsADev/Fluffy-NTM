@@ -248,7 +248,7 @@ public class ModItems {
 	@Deprecated public static Item ore_deepcleaned;
 	@Deprecated public static Item ore_seared;
 	@Deprecated public static Item ore_enriched; //final stage
-	
+
 	public static Item bedrock_ore_base;
 	public static Item bedrock_ore;
 	public static Item bedrock_ore_fragment;
@@ -1755,6 +1755,9 @@ public class ModItems {
 	public static Item hand_drill;
 	public static Item hand_drill_desh;
 	public static Item wrench_archineer;
+	public static Item custom_ele_linker;
+	public static Item elevator_platform_open;
+	public static Item elevator_platform_enclosed;
 	public static Item chemistry_set;
 	public static Item chemistry_set_boron;
 	public static Item blowtorch;
@@ -2989,6 +2992,10 @@ public class ModItems {
 
 		wiring_red_copper = new ItemWiring().setUnlocalizedName("wiring_red_copper").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":wiring_red_copper");
 		wrench = new ItemWrench(MainRegistry.tMatSteel).setUnlocalizedName("wrench").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":wrench");
+		custom_ele_linker = new ItemCustomElevatorLinker().setUnlocalizedName("custom_ele_linker").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":custom_ele_linker");;
+		elevator_platform_open = new ItemElevatorPlatformOpen().setCreativeTab(MainRegistry.machineTab).setTextureName(RefStrings.MODID + ":elevator_platform_open");
+		elevator_platform_enclosed = new ItemElevatorPlatformEnclosed().setCreativeTab(MainRegistry.machineTab).setTextureName(RefStrings.MODID + ":elevator_platform_enclosed");
+
 
 		pellet_rtg_depleted = new ItemRTGPelletDepleted().setContainerItem(plate_iron).setUnlocalizedName("pellet_rtg_depleted").setCreativeTab(MainRegistry.controlTab);
 
@@ -4403,7 +4410,7 @@ public class ModItems {
 				.addAbility(IWeaponAbility.BEHEADER, 0).setUnlocalizedName("titanium_axe").setTextureName(RefStrings.MODID + ":titanium_axe");
 		titanium_shovel = new ItemToolAbility(3.5F, 0, MainRegistry.tMatTitan, EnumToolType.SHOVEL).setUnlocalizedName("titanium_shovel").setTextureName(RefStrings.MODID + ":titanium_shovel");
 		titanium_hoe = new ModHoe(MainRegistry.tMatTitan).setUnlocalizedName("titanium_hoe").setTextureName(RefStrings.MODID + ":titanium_hoe");
-		
+
 		steel_sword = new ItemSwordAbility(6F, 0, MainRegistry.tMatSteel)
 				.addAbility(IWeaponAbility.STUN, 0).setUnlocalizedName("steel_sword").setTextureName(RefStrings.MODID + ":steel_sword");
 		steel_pickaxe = new ItemToolAbility(4F, 0, MainRegistry.tMatSteel, EnumToolType.PICKAXE)
@@ -6564,6 +6571,9 @@ public class ModItems {
 		GameRegistry.registerItem(crowbar, crowbar.getUnlocalizedName());
 		GameRegistry.registerItem(wrench, wrench.getUnlocalizedName());
 		GameRegistry.registerItem(wrench_archineer, wrench_archineer.getUnlocalizedName());
+		GameRegistry.registerItem(custom_ele_linker, custom_ele_linker.getUnlocalizedName());
+		GameRegistry.registerItem(elevator_platform_open, elevator_platform_open.getUnlocalizedName());
+		GameRegistry.registerItem(elevator_platform_enclosed, elevator_platform_enclosed.getUnlocalizedName());
 		GameRegistry.registerItem(wrench_flipped, wrench_flipped.getUnlocalizedName());
 		GameRegistry.registerItem(memespoon, memespoon.getUnlocalizedName());
 		GameRegistry.registerItem(pipe_lead, pipe_lead.getUnlocalizedName());
