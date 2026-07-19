@@ -34,6 +34,19 @@ public class ItemElevatorPlatformOpen extends Item {
 		TileEntityCustomElevatorStop stop = (TileEntityCustomElevatorStop) te;
 		int[] rep = stop.getRepPos();
 
+		for(int ix = stop.minX; ix <= stop.maxX; ix++) {
+			for(int iz = stop.minZ; iz <= stop.maxZ; iz++) {
+				TileEntity ste = world.getTileEntity(ix, stop.getRepY(), iz);
+				if(ste instanceof TileEntityCustomElevatorStop) {
+					TileEntityCustomElevatorStop s = (TileEntityCustomElevatorStop) ste;
+					if(s.platformType > 0) {
+						player.addChatMessage(new ChatComponentText("This stop already has a platform."));
+						return true;
+					}
+				}
+			}
+		}
+
 		String existing = ItemCustomElevatorLinker.findPlatformRepKey(stop);
 		if(existing != null) {
 			player.addChatMessage(new ChatComponentText("This system already has a platform."));
@@ -43,11 +56,11 @@ public class ItemElevatorPlatformOpen extends Item {
 		List<TileEntityCustomElevatorStop> comp = ItemCustomElevatorLinker.collectComponentStops(stop);
 		for(TileEntityCustomElevatorStop s : comp) {
 			s.setPlatform(1, rep[0], rep[1], rep[2]);
+			world.markBlockForUpdate(s.xCoord, s.yCoord, s.zCoord);
 		}
 		ItemCustomElevatorLinker.normalizeFrom(stop);
 
 		player.addChatMessage(new ChatComponentText("Open elevator platform placed on ESF (" + stop.sizeX + "x" + stop.sizeZ + ")."));
-
 		if(!player.capabilities.isCreativeMode) stack.stackSize--;
 		return true;
 	}

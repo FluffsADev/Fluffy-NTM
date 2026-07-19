@@ -40,16 +40,9 @@ public class RenderCargoElevator extends TileEntitySpecialRenderer implements II
 
 		GL11.glPushMatrix(); {
 			for(int i = 0; i <= elevator.height; i++) {
-				// tint stop floors so they stand out from plain guide floors
-				if(elevator.hasStop(i)) {
-					GL11.glColor3f(1.0F, 0.75F, 0.15F);
-				} else {
-					GL11.glColor3f(1.0F, 1.0F, 1.0F);
-				}
 				ResourceManager.cargo_elevator.renderPart("Guides");
 				GL11.glTranslated(0, 1, 0);
 			}
-			GL11.glColor3f(1.0F, 1.0F, 1.0F);
 		} GL11.glPopMatrix();
 
 		GL11.glPopMatrix();
@@ -57,7 +50,7 @@ public class RenderCargoElevator extends TileEntitySpecialRenderer implements II
 
 	@Override
 	public Item getItemForRenderer() {
-		return Item.getItemFromBlock(ModBlocks.cargo_elevator_stop);
+		return Item.getItemFromBlock(ModBlocks.cargo_elevator);
 	}
 
 	@Override
@@ -80,7 +73,6 @@ public class RenderCargoElevator extends TileEntitySpecialRenderer implements II
 				GL11.glTranslated(0, 1, 0);
 				ResourceManager.cargo_elevator.renderPart("Guides");
 				GL11.glShadeModel(GL11.GL_FLAT);
-			}
-		};
+			}};
 	}
 }

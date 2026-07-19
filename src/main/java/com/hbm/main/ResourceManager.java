@@ -348,6 +348,10 @@ public class ResourceManager {
 	//Elevator
 	public static final IModelCustom cargo_elevator = new HFRWavefrontObject("models/machines/elevator.obj").asVBO();
 
+	//MultiDirLift
+	public static final IModelCustom mdl_frame_corner = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/multidirlift/mdl_frame_corner.obj"));
+	public static final IModelCustom mdl_frame_side = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/multidirlift/mdl_frame_side.obj"));
+
 	//Blast Door
 	public static final IModelCustom blast_door_base = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/blast_door_base.obj"));
 	public static final IModelCustom blast_door_tooth = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/blast_door_tooth.obj"));
@@ -877,6 +881,10 @@ public class ResourceManager {
 
 	//Elevator
 	public static final ResourceLocation cargo_elevator_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/elevator.png");
+
+	// MultiDirLift
+	public static final ResourceLocation mdl_frame_corner_tex = new ResourceLocation(RefStrings.MODID, "textures/models/multidirlift/mdl_frame_corner.png");
+	public static final ResourceLocation mdl_frame_side_tex = new ResourceLocation(RefStrings.MODID, "textures/models/multidirlift/mdl_frame_side.png");
 
 	//Vault Door
 	public static final ResourceLocation vault_cog_tex = new ResourceLocation(RefStrings.MODID, "textures/models/vault_cog.png");

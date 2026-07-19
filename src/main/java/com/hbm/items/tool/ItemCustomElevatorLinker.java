@@ -23,7 +23,6 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-
 public class ItemCustomElevatorLinker extends Item {
 
 	private static int nextSystemId = 1;
@@ -40,7 +39,6 @@ public class ItemCustomElevatorLinker extends Item {
 	public ItemCustomElevatorLinker() {
 		this.setMaxStackSize(1);
 	}
-
 
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hx, float hy, float hz) {
@@ -69,9 +67,8 @@ public class ItemCustomElevatorLinker extends Item {
 				stack.stackTagCompound.setInteger(BRK_X, x);
 				stack.stackTagCompound.setInteger(BRK_Y, y);
 				stack.stackTagCompound.setInteger(BRK_Z, z);
-				player.addChatMessage(new ChatComponentText("Shift-right click again to dismantle ESF."));
+				player.addChatMessage(new ChatComponentText("Shift-right click again to dismantle elevator."));
 			}
-
 			return true;
 		}
 
@@ -80,16 +77,16 @@ public class ItemCustomElevatorLinker extends Item {
 
 		TileEntityCustomElevatorStop clicked = getStopAt(world, x, y, z);
 		if(clicked == null) return false;
+		clicked = getStopByRep(world, clicked.getRepX(), clicked.getRepY(), clicked.getRepZ());
+		if(clicked == null) return false;
 
 		if(stack.stackTagCompound == null) stack.stackTagCompound = new NBTTagCompound();
 
-		int rx = clicked.getRepX();
-		int ry = clicked.getRepY();
-		int rz = clicked.getRepZ();
+		int rx = clicked.getRepX(), ry = clicked.getRepY(), rz = clicked.getRepZ();
 
 		if(!hasSelection(stack.stackTagCompound)) {
 			setSelection(stack.stackTagCompound, rx, ry, rz);
-			player.addChatMessage(new ChatComponentText("ESF selected at " + rx + ", " + ry + ", " + rz + ". Right-click another ESF to connect/disconnect."));
+			player.addChatMessage(new ChatComponentText("Elevator start"));
 			return true;
 		}
 
@@ -99,7 +96,7 @@ public class ItemCustomElevatorLinker extends Item {
 
 		if(sx == rx && sy == ry && sz == rz) {
 			clearSelection(stack.stackTagCompound);
-			player.addChatMessage(new ChatComponentText("Selection cleared."));
+			player.addChatMessage(new ChatComponentText("Cannot link elevator to itself"));
 			return true;
 		}
 
@@ -107,7 +104,7 @@ public class ItemCustomElevatorLinker extends Item {
 		TileEntityCustomElevatorStop second = getStopByRep(world, rx, ry, rz);
 		if(first == null || second == null) {
 			clearSelection(stack.stackTagCompound);
-			player.addChatMessage(new ChatComponentText("ESF link error: one stop is no longer valid."));
+			player.addChatMessage(new ChatComponentText("Elevator link error: a stop is no longer valid."));
 			return true;
 		}
 
@@ -119,7 +116,7 @@ public class ItemCustomElevatorLinker extends Item {
 			second.removeLink(firstRep[0], firstRep[1], firstRep[2]);
 			normalizeFrom(first);
 			normalizeFrom(second);
-			player.addChatMessage(new ChatComponentText("ESF link removed. Stops now: " + collectComponentKeys(first).size()));
+			player.addChatMessage(new ChatComponentText("Elevator link removed"));
 			clearSelection(stack.stackTagCompound);
 			return true;
 		}
@@ -128,14 +125,18 @@ public class ItemCustomElevatorLinker extends Item {
 		Set<String> bKeys = collectComponentKeys(second);
 		boolean sameSystem = a.contains(key(secondRep[0], secondRep[1], secondRep[2]));
 
-		if(!sameSystem && (a.size() + bKeys.size()) > 9) {
-			player.addChatMessage(new ChatComponentText("ESF link error: a system can have at most 9 stops."));
+		if(!sameSystem && (first.sizeX != second.sizeX || first.sizeZ != second.sizeZ)) {
+			player.addChatMessage(new ChatComponentText("Elevator link error: stops must be the same size (" + first.sizeX + "x" + first.sizeZ + " vs " + second.sizeX + "x" + second.sizeZ + ")."));
 			clearSelection(stack.stackTagCompound);
 			return true;
 		}
-
+		if(!sameSystem && (a.size() + bKeys.size()) > 9) {
+			player.addChatMessage(new ChatComponentText("Elevator link error: a system can have at most 9 stops."));
+			clearSelection(stack.stackTagCompound);
+			return true;
+		}
 		if(!sameSystem && hasPlatformConflict(first, second)) {
-			player.addChatMessage(new ChatComponentText("ESF link error: both systems already have a platform."));
+			player.addChatMessage(new ChatComponentText("Elevator link error: both systems already have a platform."));
 			clearSelection(stack.stackTagCompound);
 			return true;
 		}
@@ -143,11 +144,10 @@ public class ItemCustomElevatorLinker extends Item {
 		first.addLink(secondRep[0], secondRep[1], secondRep[2]);
 		second.addLink(firstRep[0], firstRep[1], firstRep[2]);
 		normalizeFrom(first);
-		player.addChatMessage(new ChatComponentText("ESF linked. Stops in system: " + collectComponentKeys(first).size()));
+		player.addChatMessage(new ChatComponentText("Elevator linked"));
 		clearSelection(stack.stackTagCompound);
 		return true;
 	}
-
 
 	private void breakStop(World world, int x, int y, int z, EntityPlayer player) {
 		TileEntity te = world.getTileEntity(x, y, z);
@@ -160,7 +160,6 @@ public class ItemCustomElevatorLinker extends Item {
 		for(int[] link : stop.links) {
 			TileEntityCustomElevatorStop other = stop.getLinkedStop(link);
 			if(other != null) {
-
 				other.removeLink(rep[0], rep[1], rep[2]);
 				neighbors.add(other);
 			}
@@ -168,34 +167,36 @@ public class ItemCustomElevatorLinker extends Item {
 
 		for(int ix = stop.minX; ix <= stop.maxX; ix++) {
 			for(int iz = stop.minZ; iz <= stop.maxZ; iz++) {
-				if(world.getBlock(ix, y, iz) instanceof BlockCustomElevatorStopFrame) {
-					world.removeTileEntity(ix, y, iz);
-				}
+				if(world.getBlock(ix, y, iz) instanceof BlockCustomElevatorStopFrame) world.removeTileEntity(ix, y, iz);
 			}
 		}
 
-		for(TileEntityCustomElevatorStop n : neighbors) {
-			normalizeFrom(n);
-		}
-
-		player.addChatMessage(new ChatComponentText("ESF dismantled into ESFB blocks."));
+		for(TileEntityCustomElevatorStop n : neighbors) normalizeFrom(n);
+		player.addChatMessage(new ChatComponentText("Elevator dismantled"));
 	}
-
 
 	public static TileEntityCustomElevatorStop getStopAt(World world, int x, int y, int z) {
 		TileEntity te = world.getTileEntity(x, y, z);
-		if(!(te instanceof TileEntityCustomElevatorStop)) return null;
-		return (TileEntityCustomElevatorStop) te;
+		return te instanceof TileEntityCustomElevatorStop ? (TileEntityCustomElevatorStop) te : null;
 	}
-
 
 	public static TileEntityCustomElevatorStop getStopByRep(World world, int x, int y, int z) {
 		TileEntity te = world.getTileEntity(x, y, z);
-		if(!(te instanceof TileEntityCustomElevatorStop)) return null;
-		TileEntityCustomElevatorStop stop = (TileEntityCustomElevatorStop) te;
-		return (stop.getRepX() == x && stop.getRepY() == y && stop.getRepZ() == z) ? stop : null;
+		if(te instanceof TileEntityCustomElevatorStop) {
+			TileEntityCustomElevatorStop s = (TileEntityCustomElevatorStop) te;
+			if(s.getRepX() == x && s.getRepY() == y && s.getRepZ() == z) return s;
+		}
+		for(int ix = x - 8; ix <= x + 8; ix++) {
+			for(int iz = z - 8; iz <= z + 8; iz++) {
+				TileEntity t = world.getTileEntity(ix, y, iz);
+				if(t instanceof TileEntityCustomElevatorStop) {
+					TileEntityCustomElevatorStop s = (TileEntityCustomElevatorStop) t;
+					if(s.getRepX() == x && s.getRepY() == y && s.getRepZ() == z) return s;
+				}
+			}
+		}
+		return null;
 	}
-
 
 	public static Set<String> collectComponentKeys(TileEntityCustomElevatorStop start) {
 		Set<String> out = new HashSet<String>();
@@ -206,7 +207,6 @@ public class ItemCustomElevatorLinker extends Item {
 		}
 		return out;
 	}
-
 
 	public static List<TileEntityCustomElevatorStop> collectComponentStops(TileEntityCustomElevatorStop start) {
 		List<TileEntityCustomElevatorStop> out = new ArrayList<TileEntityCustomElevatorStop>();
@@ -219,7 +219,6 @@ public class ItemCustomElevatorLinker extends Item {
 		while(!q.isEmpty()) {
 			TileEntityCustomElevatorStop s = q.poll();
 			if(s == null || s.getWorldObj() == null) continue;
-
 			int[] rep = s.getRepPos();
 			String k = key(rep[0], rep[1], rep[2]);
 			if(visited.contains(k)) continue;
@@ -231,10 +230,8 @@ public class ItemCustomElevatorLinker extends Item {
 				if(other != null) q.add(other);
 			}
 		}
-
 		return out;
 	}
-
 
 	public static void normalizeFrom(TileEntityCustomElevatorStop start) {
 		List<TileEntityCustomElevatorStop> comp = collectComponentStops(start);
@@ -244,9 +241,7 @@ public class ItemCustomElevatorLinker extends Item {
 		for(TileEntityCustomElevatorStop s : comp) {
 			if(s.platformType <= 0) continue;
 			String pKey = key(s.platformX, s.platformY, s.platformZ);
-			if(!platforms.containsKey(pKey)) {
-				platforms.put(pKey, Integer.valueOf(s.platformType));
-			}
+			if(!platforms.containsKey(pKey)) platforms.put(pKey, Integer.valueOf(s.platformType));
 		}
 
 		String chosenPlatform = null;
@@ -264,128 +259,53 @@ public class ItemCustomElevatorLinker extends Item {
 			if(chosenPlatform != null) {
 				int[] p = parseKey(chosenPlatform);
 				s.setPlatform(chosenType, p[0], p[1], p[2]);
-			} else {
-				s.clearPlatform();
-			}
+			} else s.clearPlatform();
 			s.markDirty();
 		}
 	}
 
-
 	public static boolean hasPlatformConflict(TileEntityCustomElevatorStop a, TileEntityCustomElevatorStop b) {
-		String pa = findPlatformRepKey(a);
-		String pb = findPlatformRepKey(b);
+		String pa = findPlatformRepKey(a), pb = findPlatformRepKey(b);
 		return pa != null && pb != null && !pa.equals(pb);
 	}
 
-
 	public static String findPlatformRepKey(TileEntityCustomElevatorStop start) {
 		for(TileEntityCustomElevatorStop s : collectComponentStops(start)) {
-			if(s.platformType > 0) {
-				return key(s.platformX, s.platformY, s.platformZ);
-			}
+			if(s.platformType > 0) return key(s.platformX, s.platformY, s.platformZ);
 		}
 		return null;
 	}
 
-
-	public static List<int[]> findRoute(TileEntityCustomElevatorStop start, TileEntityCustomElevatorStop target) {
-		List<int[]> route = new ArrayList<>();
-		if(start == null || target == null || start.getWorldObj() != target.getWorldObj()) return route;
-
-		int[] sRep = start.getRepPos();
-		int[] tRep = target.getRepPos();
-		String sKey = key(sRep[0], sRep[1], sRep[2]);
-		String tKey = key(tRep[0], tRep[1], tRep[2]);
-		if(sKey.equals(tKey)) {
-			route.add(sRep);
-			return route;
-		}
-
-		Map<String, String> parent = new HashMap<String, String>();
-		ArrayDeque<TileEntityCustomElevatorStop> q = new ArrayDeque<TileEntityCustomElevatorStop>();
-		Set<String> visited = new HashSet<String>();
-
-		q.add(start);
-		visited.add(sKey);
-
-		while(!q.isEmpty()) {
-			TileEntityCustomElevatorStop cur = q.poll();
-			int[] cRep = cur.getRepPos();
-			String cKey = key(cRep[0], cRep[1], cRep[2]);
-
-			for(int[] link : cur.links) {
-				TileEntityCustomElevatorStop next = cur.getLinkedStop(link);
-				if(next == null) continue;
-				int[] nRep = next.getRepPos();
-				String nKey = key(nRep[0], nRep[1], nRep[2]);
-				if(visited.contains(nKey)) continue;
-				visited.add(nKey);
-				parent.put(nKey, cKey);
-				if(nKey.equals(tKey)) {
-					String walk = tKey;
-					while(walk != null) {
-						route.add(0, parseKey(walk));
-						walk = parent.get(walk);
-					}
-					return route;
-				}
-				q.add(next);
-			}
-		}
-
-		return route;
-	}
-
-
 	private static boolean hasSelection(NBTTagCompound tag) {
 		return tag.hasKey(SEL_X) && tag.hasKey(SEL_Y) && tag.hasKey(SEL_Z);
 	}
-
-
 	private static void setSelection(NBTTagCompound tag, int x, int y, int z) {
-		tag.setInteger(SEL_X, x);
-		tag.setInteger(SEL_Y, y);
-		tag.setInteger(SEL_Z, z);
+		tag.setInteger(SEL_X, x); tag.setInteger(SEL_Y, y); tag.setInteger(SEL_Z, z);
 	}
-
-
 	private static void clearSelection(NBTTagCompound tag) {
-		tag.removeTag(SEL_X);
-		tag.removeTag(SEL_Y);
-		tag.removeTag(SEL_Z);
+		tag.removeTag(SEL_X); tag.removeTag(SEL_Y); tag.removeTag(SEL_Z);
 	}
-
-
-	private static String key(int x, int y, int z) {
-		return x + "," + y + "," + z;
-	}
-
+	private static String key(int x, int y, int z) { return x + "," + y + "," + z; }
 	private static int[] parseKey(String k) {
 		String[] p = k.split(",");
 		return new int[] {Integer.parseInt(p[0]), Integer.parseInt(p[1]), Integer.parseInt(p[2])};
 	}
 
-
 	@Override
 	@SuppressWarnings("unchecked")
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
 		NBTTagCompound tag = stack.stackTagCompound;
-		if(tag != null && hasSelection(tag)) {
-			list.add("ESF selected: " + tag.getInteger(SEL_X) + ", " + tag.getInteger(SEL_Y) + ", " + tag.getInteger(SEL_Z));
-			list.add("Right-click another ESF to connect/disconnect");
-		} else {
-			list.add("Right-click ESFB to finalize frame");
-			list.add("Right-click ESF twice to link/unlink");
-			list.add("Shift+Right-click ESF twice to dismantle");
+		if(tag != null && hasSelection(tag)) list.add("Elevator start");
+		else {
+			list.add("Right-click elevator to finalize frame");
+			list.add("Right-click elevator twice to link/unlink");
+			list.add("Shift+Right-click elevator twice to dismantle");
 		}
 	}
-
 
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean inHand) {
 		if(!world.isRemote || stack.stackTagCompound == null || !hasSelection(stack.stackTagCompound)) return;
-
 		Vec3 vec = Vec3.createVectorHelper(
 			entity.posX - stack.stackTagCompound.getInteger(SEL_X),
 			entity.posY - stack.stackTagCompound.getInteger(SEL_Y),

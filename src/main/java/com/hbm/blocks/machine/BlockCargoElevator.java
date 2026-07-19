@@ -1,4 +1,4 @@
-/*package com.hbm.blocks.machine;
+package com.hbm.blocks.machine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -176,22 +176,21 @@ public class BlockCargoElevator extends BlockDummyable {
 
 	public AxisAlignedBB[] getGuideAABBs(int x, int y, int z, int height) {
 		return new AxisAlignedBB[] {
-				AxisAlignedBB.getBoundingBox(x - 1, y, z - 1, x - 0.75, y + height, z - 0.75),
-				AxisAlignedBB.getBoundingBox(x - 1, y, z + 1.75, x - 0.75, y + height, z + 2),
-				AxisAlignedBB.getBoundingBox(x + 1.75, y, z - 1, x + 2, y + height, z - 0.75),
-				AxisAlignedBB.getBoundingBox(x + 1.75, y, z + 1.75, x + 2, y + height, z + 2),
+			AxisAlignedBB.getBoundingBox(x - 1, y, z - 1, x - 0.75, y + height, z - 0.75),
+			AxisAlignedBB.getBoundingBox(x - 1, y, z + 1.75, x - 0.75, y + height, z + 2),
+			AxisAlignedBB.getBoundingBox(x + 1.75, y, z - 1, x + 2, y + height, z - 0.75),
+			AxisAlignedBB.getBoundingBox(x + 1.75, y, z + 1.75, x + 2, y + height, z + 2),
 		};
 	}
 
 	public AxisAlignedBB[] getAABBs(TileEntityCargoElevator elevator, int x, int y, int z) {
 		int height = elevator.height + 1;
 		return new AxisAlignedBB[] {
-				AxisAlignedBB.getBoundingBox(x - 1, y, z - 1, x - 0.75, y + height, z - 0.75),
-				AxisAlignedBB.getBoundingBox(x - 1, y, z + 1.75, x - 0.75, y + height, z + 2),
-				AxisAlignedBB.getBoundingBox(x + 1.75, y, z - 1, x + 2, y + height, z - 0.75),
-				AxisAlignedBB.getBoundingBox(x + 1.75, y, z + 1.75, x + 2, y + height, z + 2),
-				AxisAlignedBB.getBoundingBox(x - 1, y + 0.75 + elevator.extension, z - 1, x + 2, y + 1 + elevator.extension, z + 2),
+			AxisAlignedBB.getBoundingBox(x - 1, y, z - 1, x - 0.75, y + height, z - 0.75),
+			AxisAlignedBB.getBoundingBox(x - 1, y, z + 1.75, x - 0.75, y + height, z + 2),
+			AxisAlignedBB.getBoundingBox(x + 1.75, y, z - 1, x + 2, y + height, z - 0.75),
+			AxisAlignedBB.getBoundingBox(x + 1.75, y, z + 1.75, x + 2, y + height, z + 2),
+			AxisAlignedBB.getBoundingBox(x - 1, y + 0.75 + elevator.extension, z - 1, x + 2, y + 1 + elevator.extension, z + 2),
 		};
 	}
 }
-*/
