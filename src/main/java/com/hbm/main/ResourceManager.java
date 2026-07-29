@@ -351,7 +351,9 @@ public class ResourceManager {
 	//MultiDirLift
 	public static final IModelCustom mdl_frame_corner = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/multidirlift/mdl_frame_corner.obj"));
 	public static final IModelCustom mdl_frame_side = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/multidirlift/mdl_frame_side.obj"));
-
+	public static final IModelCustom liftplatmiddle = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/multidirlift/liftplatmiddle.obj"));
+	public static final IModelCustom liftplatside = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/multidirlift/liftplatside.obj"));
+	public static final IModelCustom liftplatcorner = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/multidirlift/liftplatcorner.obj"));
 	//Blast Door
 	public static final IModelCustom blast_door_base = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/blast_door_base.obj"));
 	public static final IModelCustom blast_door_tooth = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/blast_door_tooth.obj"));
@@ -885,7 +887,9 @@ public class ResourceManager {
 	// MultiDirLift
 	public static final ResourceLocation mdl_frame_corner_tex = new ResourceLocation(RefStrings.MODID, "textures/models/multidirlift/mdl_frame_corner.png");
 	public static final ResourceLocation mdl_frame_side_tex = new ResourceLocation(RefStrings.MODID, "textures/models/multidirlift/mdl_frame_side.png");
-
+	public static final ResourceLocation liftplatmiddle_tex = new ResourceLocation(RefStrings.MODID, "textures/models/multidirlift/liftplatmiddle.png");
+	public static final ResourceLocation liftplatside_tex = new ResourceLocation(RefStrings.MODID, "textures/models/multidirlift/liftplatside.png");
+	public static final ResourceLocation liftplatcorner_tex = new ResourceLocation(RefStrings.MODID, "textures/models/multidirlift/liftplatcorner.png");
 	//Vault Door
 	public static final ResourceLocation vault_cog_tex = new ResourceLocation(RefStrings.MODID, "textures/models/vault_cog.png");
 	public static final ResourceLocation vault_frame_tex = new ResourceLocation(RefStrings.MODID, "textures/models/vault_frame.png");

@@ -56,6 +56,9 @@ public class ItemElevatorPlatformOpen extends Item {
 		List<TileEntityCustomElevatorStop> comp = ItemCustomElevatorLinker.collectComponentStops(stop);
 		for(TileEntityCustomElevatorStop s : comp) {
 			s.setPlatform(1, rep[0], rep[1], rep[2]);
+			for(int ix = s.minX; ix <= s.maxX; ix++)
+				for(int iz = s.minZ; iz <= s.maxZ; iz++)
+					world.markBlockForUpdate(ix, s.getRepY(), iz);
 			world.markBlockForUpdate(s.xCoord, s.yCoord, s.zCoord);
 		}
 		ItemCustomElevatorLinker.normalizeFrom(stop);
