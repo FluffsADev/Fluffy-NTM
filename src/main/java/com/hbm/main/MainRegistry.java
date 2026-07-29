@@ -670,6 +670,7 @@ public class MainRegistry {
 		Compat.handleRailcraftNonsense();
 		SuicideThreadDump.register();
 		CommandReloadClient.register();
+		CommandWikiRender.register();
 
 		WorldTypeTeleport.init();
 
@@ -743,6 +744,7 @@ public class MainRegistry {
 		event.registerServerCommand(new CommandLocate());
 		event.registerServerCommand(new CommandTotalTime());
 		event.registerServerCommand(new CommandCustomize());
+		event.registerServerCommand(new CommandWikiRender()); // TODO: make this shitfuck be clientside
 		event.registerServerCommand(new CommandReapNetworks());
 		ArcFurnaceRecipes.registerFurnaceSmeltables(); // because we have to wait for other mods to take their merry ass time to register recipes
 	}
@@ -1714,6 +1716,10 @@ public class MainRegistry {
 		ignoreMappings.add("hbm:item.blades_advanced_alloy");
 		ignoreMappings.add("hbm:tile.machine_minirtg");
 		ignoreMappings.add("hbm:tile.machine_powerrtg");
+		ignoreMappings.add("hbm:item.energy_core");
+		ignoreMappings.add("hbm:item.drax");
+		ignoreMappings.add("hbm:item.drax_mk2");
+		ignoreMappings.add("hbm:item.drax_mk3");
 		
 		/// REMAP ///
 		remapItems.put("hbm:item.gadget_explosive8", ModItems.early_explosive_lenses);

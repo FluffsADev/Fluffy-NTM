@@ -259,14 +259,14 @@ public class ModBlocks {
 	public static Block block_foam;
 	public static Block block_coke;
 	public static Block block_graphite;
-	public static Block block_graphite_drilled;
-	public static Block block_graphite_fuel;
-	public static Block block_graphite_plutonium;
-	public static Block block_graphite_rod;
-	public static Block block_graphite_source;
-	public static Block block_graphite_lithium;
-	public static Block block_graphite_tritium;
-	public static Block block_graphite_detector;
+	@Deprecated public static Block block_graphite_drilled;
+	@Deprecated public static Block block_graphite_fuel;
+	@Deprecated public static Block block_graphite_plutonium;
+	@Deprecated public static Block block_graphite_rod;
+	@Deprecated public static Block block_graphite_source;
+	@Deprecated public static Block block_graphite_lithium;
+	@Deprecated public static Block block_graphite_tritium;
+	@Deprecated public static Block block_graphite_detector;
 	public static Block block_boron;
 	public static Block block_lanthanium;
 	public static Block block_ra226;
@@ -958,6 +958,10 @@ public class ModBlocks {
 	public static Block cm_heat;
 	public static Block custom_machine;
 	public static Block cm_anchor;
+
+	public static Block pile_brick;
+	public static Block pile_block;
+	public static Block pile_device;
 
 	public static Block pwr_fuel;
 	public static Block pwr_control;
@@ -1911,8 +1915,8 @@ public class ModBlocks {
 
 		waste_earth = new WasteEarth(Material.ground, true).setBlockName("waste_earth").setStepSound(Block.soundTypeGrass).setCreativeTab(MainRegistry.blockTab).setHardness(0.6F).setBlockTextureName(RefStrings.MODID + ":waste_earth");
 		waste_mycelium = new WasteEarth(Material.ground, true).setBlockName("waste_mycelium").setStepSound(Block.soundTypeGrass).setLightLevel(1F).setCreativeTab(MainRegistry.blockTab).setHardness(0.6F).setBlockTextureName(RefStrings.MODID + ":waste_mycelium_side");
-		waste_trinitite = new BlockStepEffect(Material.sand).noFortune().setBlockName("waste_trinitite").setStepSound(Block.soundTypeSand).setCreativeTab(MainRegistry.blockTab).setHardness(0.5F).setResistance(2.5F).setBlockTextureName(RefStrings.MODID + ":waste_trinitite");
-		waste_trinitite_red = new BlockStepEffect(Material.sand).noFortune().setBlockName("waste_trinitite_red").setStepSound(Block.soundTypeSand).setCreativeTab(MainRegistry.blockTab).setHardness(0.5F).setResistance(2.5F).setBlockTextureName(RefStrings.MODID + ":waste_trinitite_red");
+		waste_trinitite = new BlockTrinitite(Material.sand).noFortune().setBlockName("waste_trinitite").setStepSound(Block.soundTypeSand).setCreativeTab(MainRegistry.blockTab).setHardness(0.5F).setResistance(2.5F).setBlockTextureName(RefStrings.MODID + ":waste_trinitite");
+		waste_trinitite_red = new BlockTrinitite(Material.sand).noFortune().setBlockName("waste_trinitite_red").setStepSound(Block.soundTypeSand).setCreativeTab(MainRegistry.blockTab).setHardness(0.5F).setResistance(2.5F).setBlockTextureName(RefStrings.MODID + ":waste_trinitite_red");
 		waste_log = new WasteLog(Material.wood).setBlockName("waste_log").setStepSound(Block.soundTypeWood).setCreativeTab(MainRegistry.blockTab).setHardness(5.0F).setResistance(2.5F);
 		waste_leaves = new WasteLeaves(Material.leaves).setBlockName("waste_leaves").setStepSound(Block.soundTypeGrass).setCreativeTab(MainRegistry.blockTab).setHardness(0.1F).setBlockTextureName(RefStrings.MODID + ":waste_leaves");
 		waste_planks = new BlockStepEffect(Material.wood).setBlockName("waste_planks").setStepSound(Block.soundTypeWood).setCreativeTab(MainRegistry.blockTab).setHardness(0.5F).setResistance(2.5F).setBlockTextureName(RefStrings.MODID + ":waste_planks");
@@ -2241,16 +2245,20 @@ public class ModBlocks {
 		cm_heat = new BlockCMHeat(Material.iron, RefStrings.MODID +":cm_heat_top").setBlockName("cm_heat").setCreativeTab(MainRegistry.machineTab).setHardness(5.0F).setResistance(10.0F).setBlockTextureName(RefStrings.MODID + ":cm_heat_side");
 		custom_machine = new BlockCustomMachine().setBlockName("custom_machine").setCreativeTab(MainRegistry.machineTab).setLightLevel(1F).setHardness(5.0F).setResistance(10.0F);
 		cm_anchor = new BlockCMAnchor().setBlockName("custom_machine_anchor").setCreativeTab(MainRegistry.machineTab).setHardness(5.0F).setResistance(10.0F);
+		
+		pile_brick = new BlockPileBrick().setBlockName("pile_brick").setStepSound(Block.soundTypeMetal).setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pile_brick");
+		pile_device = new BlockPileDevice().setBlockName("pile_device").setStepSound(Block.soundTypeMetal).setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
+		pile_block = new BlockPile().setBlockName("pile_block").setStepSound(Block.soundTypeMetal).setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pile_block");
 
 		pwr_fuel = new BlockPillarPWR(Material.iron, RefStrings.MODID + ":pwr_fuel_top").setBlockName("pwr_fuel").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_fuel_side");
 		pwr_control = new BlockPillarPWR(Material.iron, RefStrings.MODID + ":pwr_control_top").setBlockName("pwr_control").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_control_side");
 		pwr_channel = new BlockPillarPWR(Material.iron, RefStrings.MODID + ":pwr_channel_top").setBlockName("pwr_channel").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_channel_side");
-		pwr_heatex = new BlockGenericPWR(Material.iron).setBlockName("pwr_heatex").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_heatex");
-		pwr_heatsink = new BlockGenericPWR(Material.iron).setBlockName("pwr_heatsink").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_heatsink");
-		pwr_neutron_source = new BlockGenericPWR(Material.iron).setBlockName("pwr_neutron_source").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_neutron_source");
-		pwr_reflector = new BlockGenericPWR(Material.iron).setBlockName("pwr_reflector").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_reflector");
-		pwr_casing = new BlockGenericPWR(Material.iron).setBlockName("pwr_casing").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_casing");
-		pwr_port = new BlockGenericPWR(Material.iron).setBlockName("pwr_port").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_port");
+		pwr_heatex = new BlockGenericTooltip(Material.iron).setBlockName("pwr_heatex").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_heatex");
+		pwr_heatsink = new BlockGenericTooltip(Material.iron).setBlockName("pwr_heatsink").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_heatsink");
+		pwr_neutron_source = new BlockGenericTooltip(Material.iron).setBlockName("pwr_neutron_source").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_neutron_source");
+		pwr_reflector = new BlockGenericTooltip(Material.iron).setBlockName("pwr_reflector").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_reflector");
+		pwr_casing = new BlockGenericTooltip(Material.iron).setBlockName("pwr_casing").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_casing");
+		pwr_port = new BlockGenericTooltip(Material.iron).setBlockName("pwr_port").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_port");
 		pwr_controller = new MachinePWRController(Material.iron).setBlockName("pwr_controller").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pwr_casing_blank");
 		pwr_block = new BlockPWR(Material.iron).setBlockName("pwr_block").setHardness(5.0F).setResistance(10.0F).setCreativeTab(null).setBlockTextureName(RefStrings.MODID + ":pwr_block");
 
@@ -3815,6 +3823,11 @@ public class ModBlocks {
 		register(cm_flux);
 		register(cm_heat);
 		register(cm_anchor);
+		
+		//Chicago Pile
+		register(pile_brick);
+		register(pile_device);
+		register(pile_block);
 
 		//PWR
 		register(pwr_fuel);

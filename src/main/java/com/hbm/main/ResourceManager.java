@@ -443,6 +443,11 @@ public class ResourceManager {
 	public static final IModelCustom scrapfish = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/mobs/scrapfish.obj")).asVBO();
 	public static final IModelCustom depthsquid = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/mobs/depthsquid.obj")).asVBO();
 	public static final IModelCustom sifter_eel = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/mobs/siftereel.obj")).asVBO();
+	
+	//PILE
+	public static final IModelCustom pile_loader = new HFRWavefrontObject("models/pile/pile_loader.obj").asVBO();
+	public static final IModelCustom pile_vent = new HFRWavefrontObject("models/pile/pile_vent.obj").asVBO();
+	public static final IModelCustom pile_control = new HFRWavefrontObject("models/pile/pile_control.obj").asVBO();
 
 	//ZIRNOX
 	public static final IModelCustom zirnox = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/zirnox.obj")).asVBO();
@@ -946,6 +951,11 @@ public class ResourceManager {
 	public static final ResourceLocation bfangel_tex = new ResourceLocation(RefStrings.MODID, "textures/entity/bfa_body.png");
 
 	public static final ResourceLocation glyphid_digger_tex = new ResourceLocation(RefStrings.MODID, "textures/entity/glyphid_digger.png");
+	
+	//PILE
+	public static final ResourceLocation pile_loader_tex = new ResourceLocation(RefStrings.MODID, "textures/models/pile/pile_loader.png");
+	public static final ResourceLocation pile_vent_tex = new ResourceLocation(RefStrings.MODID, "textures/models/pile/pile_vent.png");
+	public static final ResourceLocation pile_control_tex = new ResourceLocation(RefStrings.MODID, "textures/models/pile/pile_control.png");
 
 	//ZIRNOX
 	public static final ResourceLocation zirnox_tex = new ResourceLocation(RefStrings.MODID, "textures/models/zirnox.png");
