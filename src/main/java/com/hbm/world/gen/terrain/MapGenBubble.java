@@ -16,10 +16,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class MapGenBubble extends MapGenBaseMeta {
 
-	/**
-	 * Generates oil bubbles, which are generally wider than a chunk, in a safe + cascadeless manner
-	 * Pretty much just an oblate sphere generator (dimensions: 3 x 1 x 3)
-	 */
 
 	private final int frequency;
 	public Random rand;
@@ -115,8 +111,6 @@ public class MapGenBubble extends MapGenBaseMeta {
 
 			if(rx >= 0 && rx < 16 && rz >= 0 && rz < 16) {
 				for(int y = 127; y >= 0; y--) {
-				// find ground level
-				for(int y = 127; y >= 4; y--) {
 					int index = (rx * 16 + rz) * 256 + y;
 
 					if(index < 0 || index >= blocks.length) continue;

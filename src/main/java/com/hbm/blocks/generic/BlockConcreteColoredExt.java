@@ -46,16 +46,16 @@ public class BlockConcreteColoredExt extends BlockEnumMulti implements ITooltipP
 	public enum EnumConcreteType {
 		MACHINE,
 		MACHINE_STRIPE,
-		DARK_ORANGE,
-		LIGHT_BROWN,
-		DARK_RED,
-		DARK_YELLOW,
 		INDIGO,
 		PURPLE,
 		PINK,
 		HAZARD,
-		HAZARD_ORANGE,
 		SAND,
-		BRONZE
+		BRONZE,
+		DARK_ORANGE,
+		LIGHT_BROWN,
+		DARK_RED,
+		DARK_YELLOW,
+		HAZARD_ORANGE
 	}
 }
