@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.blocks.generic.BlockDoorGeneric;
+import com.hbm.handler.atmosphere.IBlockSealable;
 import com.hbm.lib.Library;
 import com.hbm.main.MainRegistry;
 import com.hbm.render.anim.HbmAnimations.Animation;
@@ -48,6 +49,12 @@ public class TileEntityDoorGeneric extends TileEntityLockableBase {
 	@Override
 	public void updateEntity() {
 		if(this.getBlockMetadata() < 12) return;
+
+		if(this.getDoorType() == null) {
+			this.invalidate();
+			return;
+		}
+
 
 		// FIX: call super so TileEntityLockableBase can process radio/RoR listening
 		super.updateEntity();
@@ -147,9 +154,11 @@ public class TileEntityDoorGeneric extends TileEntityLockableBase {
 			}
 			if(state == STATE_OPENING && openTicks == getDoorType().timeToOpen()) {
 				state = STATE_OPEN;
+				((IBlockSealable)blockType).updateSealedState(worldObj, xCoord, yCoord, zCoord);
 			}
 			if(state == STATE_CLOSING && openTicks == 0) {
 				state = STATE_CLOSED;
+				((IBlockSealable)blockType).updateSealedState(worldObj, xCoord, yCoord, zCoord);
 			}
 
 			this.networkPackNT(100);
@@ -196,7 +205,7 @@ public class TileEntityDoorGeneric extends TileEntityLockableBase {
 	public DoorDecl getDoorType() {
 
 		if(this.doorType == null && this.getBlockType() instanceof BlockDoorGeneric)
-			this.doorType = ((BlockDoorGeneric)this.getBlockType()).type;
+			this.doorType = ((BlockDoorGeneric) this.getBlockType()).type;
 
 		return this.doorType;
 	}
