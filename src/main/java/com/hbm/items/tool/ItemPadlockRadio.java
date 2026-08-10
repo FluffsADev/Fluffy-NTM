@@ -170,7 +170,7 @@ public class ItemPadlockRadio extends ItemLock implements IGUIProvider, IItemCon
 	}
 
 	@Override
-	public void receiveControl(ItemStack stack, NBTTagCompound data) {
+	public void receiveControl(EntityPlayer player, ItemStack stack, NBTTagCompound data) {
 		if (stack == null || data == null) return;
 		if (!stack.hasTagCompound()) stack.stackTagCompound = new NBTTagCompound();
 
@@ -185,7 +185,9 @@ public class ItemPadlockRadio extends ItemLock implements IGUIProvider, IItemCon
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, net.minecraft.entity.player.EntityPlayer player, java.util.List list, boolean bool) {
+	@SideOnly(Side.CLIENT)
+	@SuppressWarnings("unchecked")
+	public void addInformation(ItemStack stack, EntityPlayer player, java.util.List list, boolean bool) {
 		super.addInformation(stack, player, list, bool);
 
 		String firstChan = null;

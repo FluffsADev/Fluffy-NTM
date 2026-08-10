@@ -25,6 +25,7 @@ public class ItemCassette extends Item {
 		AUTOPILOT(			"Autopilot Disconnected", 	new ResourceLocation("hbm:alarm.autopilot"),			SoundType.LOOP,		11908533,	50),
 		AMS_SIREN(			"AMS Siren", 				new ResourceLocation("hbm:alarm.amsSiren"),				SoundType.LOOP,		15055698,	50),
 		BLAST_DOOR(			"Blast Door Alarm", 		new ResourceLocation("hbm:alarm.blastDoorAlarm"),		SoundType.LOOP,		11665408,	50),
+		BLAST_DOOR_PASS(	"Blast Door Alarm Pass", 		new ResourceLocation("hbm:alarm.blastdooralarmpass"),		SoundType.PASS,		11665408,	50),
 		APC_LOOP(			"APC Siren", 				new ResourceLocation("hbm:alarm.apcLoop"),				SoundType.LOOP,		3565216,	50),
 		APC_PASS_2(			"APC Siren Pass V2", 		new ResourceLocation("hbm:alarm.apcPass2"),			SoundType.PASS,		3565216,	50),
 		KLAXON(				"Klaxon", 					new ResourceLocation("hbm:alarm.klaxon"),				SoundType.LOOP,		8421504,	50),
@@ -46,8 +47,8 @@ public class ItemCassette extends Item {
 		INTRUDE_ALERT_PASS(	"Intruder Alert Pass",		new ResourceLocation("hbm:alarm.intrudealarmpass"),	SoundType.PASS,		26624,		50),
 		INTRUDE_ALERT_ALARM("Intruder Alert Alarm",		new ResourceLocation("hbm:alarm.intrudealarmLoop"),	SoundType.LOOP,		26624,		50),
 		APC_PASS(			"APC Pass", 				new ResourceLocation("hbm:alarm.apcPass"),				SoundType.PASS,		3422163,	50),
-		MANHACK(			"Manhack Alarm", 			new ResourceLocation("hbm:alarm.manhackLoop"),			SoundType.LOOP,		16711769,	50),
-		MANHACK_PASS(		"Manhack Alarm Pass", 		new ResourceLocation("hbm:alarm.manhackPass"),			SoundType.PASS,		65280  ,	50),
+		MANHACK(			"Manhack Alarm", 			new ResourceLocation("hbm:alarm.manhackLoop"),			SoundType.LOOP,		16711769,	100),
+		MANHACK_PASS(		"Manhack Alarm Pass", 		new ResourceLocation("hbm:alarm.manhackPass"),			SoundType.PASS,		65280  ,	100),
 		INDUST_ALARM(		"Industrial Alarm", 		new ResourceLocation("hbm:alarm.industalarmLoop"),		SoundType.LOOP,		255 ,	100),
 		INDUST_ALARM_PASS(	"Industrial Alarm Pass", 	new ResourceLocation("hbm:alarm.industalarmPass"),		SoundType.PASS,		16776960 ,	100),
 		RAZORTRAIN(			"Razortrain Horn", 			new ResourceLocation("hbm:alarm.razortrainHorn"),		SoundType.SOUND,	7819501,	250),
@@ -55,14 +56,14 @@ public class ItemCassette extends Item {
 		DETECT_ALARM_PASS(	"Detection Alarm 1 Pass", 	new ResourceLocation("hbm:alarm.detectPass"),			SoundType.PASS,		65535 ,	50),
 		DETECT_ALARM_2(		"Detection Alarm 2", 		new ResourceLocation("hbm:alarm.detectPass2"),			SoundType.LOOP,		16777215 ,	50),
 		DETECT_ALARM_2_PASS("Detection Alarm 2 Pass", 	new ResourceLocation("hbm:alarm.detectPass2"),			SoundType.PASS,		8355711 ,	50),
-		SECURITY_ALERT(		"Security Alarm", 			new ResourceLocation("hbm:alarm.securityalertLoop"),	SoundType.LOOP,		16744448 ,	50),
-		SECURITY_ALERT_PASS("Security Alarm Pass", 		new ResourceLocation("hbm:alarm.securityalertPass"),	SoundType.PASS,		13421772 ,	50),
-		BREACH_ALARM(		"Breach Alarm", 			new ResourceLocation("hbm:alarm.breachLoop"),			SoundType.LOOP,		1644825 ,	50),
-		BREACH_ALARM_PASS(	"Breach Alarm Pass", 		new ResourceLocation("hbm:alarm.breachPass"),			SoundType.PASS,		16764108,	50),
-		EMERGENCY_ALARM(	"Emergency Alarm", 			new ResourceLocation("hbm:alarm.emergencyLoop"),		SoundType.LOOP,		7451646 ,	50),
-		EMERGENCY_ALARM_PASS("Emergency Alarm Pass", 	new ResourceLocation("hbm:alarm.emergencyPass"),		SoundType.PASS,		10079487 ,	50),
-		LOCKDOWN_ALARM(		"Lockdown Alarm", 			new ResourceLocation("hbm:alarm.lockdownLoop"),		SoundType.LOOP,		14745599 ,	50),
-		LOCKDOWN_ALARM_PASS("Lockdown Alarm Pass", 		new ResourceLocation("hbm:alarm.lockdownPass"),		SoundType.PASS,		3394611 ,	50);
+		SECURITY_ALERT(		"Security Alarm", 			new ResourceLocation("hbm:alarm.securityalertLoop"),	SoundType.LOOP,		16744448 ,	100),
+		SECURITY_ALERT_PASS("Security Alarm Pass", 		new ResourceLocation("hbm:alarm.securityalertPass"),	SoundType.PASS,		13421772 ,	100),
+		EMERGENCY_ALARM(	"Emergency Alarm", 			new ResourceLocation("hbm:alarm.emergencyLoop"),		SoundType.LOOP,		7451646 ,	100),
+		EMERGENCY_ALARM_PASS("Emergency Alarm Pass", 	new ResourceLocation("hbm:alarm.emergencyPass"),		SoundType.PASS,		10079487 ,	100),
+		LOCKDOWN_ALARM(		"Lockdown Alarm", 			new ResourceLocation("hbm:alarm.lockdownLoop"),		SoundType.LOOP,		14745599 ,	250),
+		LOCKDOWN_ALARM_PASS("Lockdown Alarm Pass", 		new ResourceLocation("hbm:alarm.lockdownPass"),		SoundType.PASS,		3394611 ,	250),
+		ANNUNCIATOR_ALARM(		"Annunciator Alarm", 			new ResourceLocation("hbm:alarm.annunciatoralarm"),SoundType.LOOP,		14745599 ,	50),
+		ANNUNCIATOR_ALARM_PASS("Annunciator Alarm Pass", 		new ResourceLocation("hbm:alarm.annunciatoralarmpass"),SoundType.PASS,		3394611 ,	50);
 
 		private String title;
 		private ResourceLocation location;
